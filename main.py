@@ -124,4 +124,3 @@ async def random_movie(message: types.Message):
 if __name__ == '__main__':
     print('It is working!')
     executor.start_polling(dp, skip_updates=True)
-    
