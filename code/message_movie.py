@@ -1,5 +1,6 @@
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, executor, types
 from aiogram.utils.markdown import hbold
+from aiogram.dispatcher.filters import Text
 import pandas as pd
 import numpy as np
 
@@ -10,6 +11,7 @@ bot = Bot(token=telegram_token, parse_mode=types.ParseMode.HTML)
 dp = Dispatcher(bot)
 
 
+# Make a message with a random movie.
 def random_movie_value():
 
     # Read a csv file and create a random number.
@@ -24,6 +26,7 @@ def random_movie_value():
     return random_movie_value
 
 
+# Inline buttons for a message with a random movie.
 def random_movie_buttons():
 
     # Message inline buttons.
@@ -32,3 +35,8 @@ def random_movie_buttons():
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     keyboard.add(*buttons)
     return keyboard
+
+
+
+async def update_movie(message: types.Message, new_value: str):
+    await message.edit_text(f'{new_value}', reply_markup=random_movie_buttons())

@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 from code.config import telegram_token
-from code.message_movie import random_movie_value, random_movie_buttons
+from code.message_movie import random_movie_value, random_movie_buttons, update_movie
 
 
 bot = Bot(token=telegram_token, parse_mode=types.ParseMode.HTML)
@@ -115,8 +115,7 @@ async def random_movie(message: types.Message):
 # Handler for react on inline buttons with callback_data="next_movie".
 @dp.callback_query_handler(text="next_movie")
 async def send_random_value(call: types.CallbackQuery):
-    random_movie = random_movie_value()
-    await call.message.answer(random_movie)
+    await update_movie(call.message, random_movie_value())
     await call.answer()
 
 
