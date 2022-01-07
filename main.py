@@ -18,7 +18,7 @@ async def type_of_movies_button(message: types.Message):
     buttons = ['Фильмы / Сериалы', 'Пропустить Ф/С']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*buttons)
-    type_of_movies_value = ('Пожалуйста, выберите из списка ниже' + u'\U0001F447')
+    type_of_movies_value = ('(1/4) Пожалуйста, выберите из списка ниже' + u'\U0001F447')
     await message.answer(type_of_movies_value, reply_markup=keyboard)
 
 
@@ -42,7 +42,7 @@ async def genre_button(message: types.Message):
     buttons = ['Жанры', 'Пропустить жанры']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*buttons)
-    genre_value = ('Выберите жанры' + u'\U0001F447')
+    genre_value = ('(2/4) Выберите жанры' + u'\U0001F447')
     await message.answer(genre_value, reply_markup=keyboard)
 
 
@@ -62,7 +62,7 @@ async def year_button(message: types.Message):
     buttons = ['Года', 'Пропустить года']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*buttons)
-    year_value = ('Выберите года:' + u'\U0001F447')
+    year_value = ('(3/4) Выберите года:' + u'\U0001F447')
     await message.answer(year_value, reply_markup=keyboard)
 
 
@@ -84,9 +84,9 @@ async def year(message: types.Message):
 @dp.message_handler(commands='tkpn4YUf')
 async def kinopoisk_raiting_button(message: types.Message):
     buttons = ['Рейтинг Кинопоиска', 'Пропустить рейтинг']
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     keyboard.add(*buttons)
-    kinopoisk_raiting = ('Выберите рейтинг кинопоиска:' + u'\U0001F447')
+    kinopoisk_raiting = ('(4/4) Выберите рейтинг:' + u'\U0001F447')
     await message.answer(kinopoisk_raiting, reply_markup=keyboard)
 
 
