@@ -3,5 +3,6 @@ venv
 .git
 .idea
 *.swp
-config.py
+code/config.py
 .obsidian
+delete_me.py
