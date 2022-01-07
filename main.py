@@ -1,7 +1,8 @@
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.utils.markdown import hbold, hunderline, hcode, hlink, hspoiler
-from config import telegram_token
 from aiogram.dispatcher.filters import Text
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from config import telegram_token
 import pandas as pd
 import numpy as np
 
@@ -118,7 +119,36 @@ async def random_movie(message: types.Message):
                          f"({file['release_year'][random_value]})\n" \
                          f"{file['description'][random_value]}"
 
-    await message.answer(random_movie_value, reply_markup=types.ReplyKeyboardRemove())
+    # Message inline buttons.
+    button = [types.InlineKeyboardButton(text="<", callback_data="previous_movie"),
+              types.InlineKeyboardButton(text=">", callback_data="next_movie")]
+    keyboard = types.InlineKeyboardMarkup(row_width=2)
+    keyboard.add(*button)
+
+    await message.answer(random_movie_value, reply_markup=keyboard)
+
+
+# Function for generate a new random movie and return it in styled format.
+def random_movie_next():
+    # Read a csv file and create a random number.
+    file = pd.read_csv('./.data/netflix_titles.csv')
+    file_len = file[file.columns[0]].count() - 1
+    random_value = np.random.randint(0, file_len)
+
+    # Message view using aiogram markdown.
+    random_movie_value = f"{hbold(file['title'][random_value])} " \
+                         f"({file['release_year'][random_value]})\n" \
+                         f"{file['description'][random_value]}"
+
+    return random_movie_value
+
+
+# Handler for react on inline buttons with callback_data="next_movie".
+@dp.callback_query_handler(text="next_movie")
+async def send_random_value(call: types.CallbackQuery):
+    random_movie = random_movie_next()
+    await call.message.answer(random_movie)
+    await call.answer()
 
 
 if __name__ == '__main__':
