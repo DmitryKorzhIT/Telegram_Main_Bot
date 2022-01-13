@@ -3,6 +3,7 @@ from aiogram.utils.markdown import hbold
 from aiogram.dispatcher.filters import Text
 import pandas as pd
 import numpy as np
+import emoji
 
 from code.config import telegram_token
 from code.message_movie import random_movie_value, random_movie_buttons, update_movie
@@ -109,12 +110,29 @@ async def kinopoisk_raiting(message: types.Message):
 @dp.message_handler(commands='Fi5az1kq')
 @dp.message_handler(commands='C31BjQyY')
 async def random_movie(message: types.Message):
-    await message.answer(random_movie_value(), reply_markup=random_movie_buttons())
+
+    message_list = random_movie_value()
+    image_link = message_list[0]
+    text_value = message_list[1]
+
+    # await message.answer(random_movie_value(), reply_markup=random_movie_buttons())
+    await bot.send_photo(message.chat.id,
+                         parse_mode=types.ParseMode.HTML,
+                         photo=image_link,
+                         caption=text_value,
+                         reply_markup=random_movie_buttons())
+
+
 
 
 # Handler for react on inline buttons with callback_data="next_movie".
 @dp.callback_query_handler(text="next_movie")
 async def send_random_value(call: types.CallbackQuery):
+
+    message_list = random_movie_value()
+    image_link = message_list[0]
+    text_value = message_list[1]
+
     await update_movie(call.message, random_movie_value())
     await call.answer()
 

@@ -3,6 +3,7 @@ from aiogram.utils.markdown import hbold
 from aiogram.dispatcher.filters import Text
 import pandas as pd
 import numpy as np
+import emoji
 
 from code.config import telegram_token
 
@@ -11,7 +12,7 @@ bot = Bot(token=telegram_token, parse_mode=types.ParseMode.HTML)
 dp = Dispatcher(bot)
 
 
-# Make a message with a random movie.
+# Get a message with a random movie.
 def random_movie_value():
 
     # Read a csv file and create a random number.
@@ -19,11 +20,18 @@ def random_movie_value():
     file_len = file[file.columns[0]].count() - 1
     random_value = np.random.randint(0, file_len)
 
+    # Get link on a poster.
+    image_link = file['posterUrl'][random_value]
+
     # Message view using aiogram markdown.
-    random_movie_value = f"{hbold(file['nameRu'][random_value])} " \
-                         f"({file['year'][random_value]})\n" \
-                         f"Рейтинг кинопоиск: {file['ratingKinopoisk'][random_value]}"
-    return random_movie_value
+    text_value = f"{hbold(file['nameRu'][random_value])} " \
+                              f"({file['year'][random_value]})\n" \
+                              f"Рейтинг кинопоиск: {file['ratingKinopoisk'][random_value]}"
+
+    message_list = [image_link, text_value]
+
+    return message_list
+
 
 
 # Inline buttons for a message with a random movie.
