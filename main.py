@@ -6,7 +6,7 @@ import numpy as np
 import emoji
 
 from code.config import telegram_token
-from code.message_movie import random_movie_value, random_movie_buttons, update_movie
+from code.message_movie import random_movie_value, random_movie_buttons
 
 
 bot = Bot(token=telegram_token, parse_mode=types.ParseMode.HTML)
@@ -123,20 +123,35 @@ async def random_movie(message: types.Message):
                          reply_markup=random_movie_buttons())
 
 
-
-
 # Handler for react on inline buttons with callback_data="next_movie".
 @dp.callback_query_handler(text="next_movie")
-async def send_random_value(call: types.CallbackQuery):
+async def send_random_value(message: types.Message):
 
     message_list = random_movie_value()
     image_link = message_list[0]
     text_value = message_list[1]
 
-    await update_movie(call.message, random_movie_value())
-    await call.answer()
+    await bot.send_photo(message.from_user.id,
+                         parse_mode=types.ParseMode.HTML,
+                         photo=image_link,
+                         caption=text_value,
+                         reply_markup=random_movie_buttons())
+    await bot.delete_message(message.from_user.id, message.message.message_id)
+    # await call.answer()
 
 
 if __name__ == '__main__':
     print('It is working!')
     executor.start_polling(dp, skip_updates=True)
+
+
+
+
+
+
+
+
+
+
+
+

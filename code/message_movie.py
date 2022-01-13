@@ -25,8 +25,8 @@ def random_movie_value():
 
     # Message view using aiogram markdown.
     text_value = f"{hbold(file['nameRu'][random_value])} " \
-                              f"({file['year'][random_value]})\n" \
-                              f"Рейтинг кинопоиск: {file['ratingKinopoisk'][random_value]}"
+                 f"({file['year'][random_value]})\n" \
+                 f"Рейтинг кинопоиск: {file['ratingKinopoisk'][random_value]}"
 
     message_list = [image_link, text_value]
 
@@ -46,5 +46,12 @@ def random_movie_buttons():
 
 
 
-async def update_movie(message: types.Message, new_value: str):
-    await message.edit_text(f'{new_value}', reply_markup=random_movie_buttons())
+
+
+
+
+
+
+
+
+
