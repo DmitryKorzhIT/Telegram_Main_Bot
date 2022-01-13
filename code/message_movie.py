@@ -15,14 +15,14 @@ dp = Dispatcher(bot)
 def random_movie_value():
 
     # Read a csv file and create a random number.
-    file = pd.read_csv('./.data/netflix_titles.csv')
+    file = pd.read_csv('.data/kinopoisk_movies.csv')
     file_len = file[file.columns[0]].count() - 1
     random_value = np.random.randint(0, file_len)
 
     # Message view using aiogram markdown.
-    random_movie_value = f"{hbold(file['title'][random_value])} " \
-                         f"({file['release_year'][random_value]})\n" \
-                         f"{file['description'][random_value]}"
+    random_movie_value = f"{hbold(file['nameRu'][random_value])} " \
+                         f"({file['year'][random_value]})\n" \
+                         f"Рейтинг кинопоиск: {file['ratingKinopoisk'][random_value]}"
     return random_movie_value
 
 
