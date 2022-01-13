@@ -125,19 +125,17 @@ async def random_movie(message: types.Message):
 
 # Handler for react on inline buttons with callback_data="next_movie".
 @dp.callback_query_handler(text="next_movie")
-async def send_random_value(message: types.Message):
+async def send_random_value(callback_query: types.CallbackQuery):
 
     message_list = random_movie_value()
     image_link = message_list[0]
     text_value = message_list[1]
 
-    await bot.send_photo(message.from_user.id,
-                         parse_mode=types.ParseMode.HTML,
-                         photo=image_link,
-                         caption=text_value,
-                         reply_markup=random_movie_buttons())
-    await bot.delete_message(message.from_user.id, message.message.message_id)
-    # await call.answer()
+    await bot.edit_message_media(media=types.InputMediaPhoto(image_link, caption=text_value),
+                                 chat_id=callback_query.message.chat.id,
+                                 message_id=callback_query.message.message_id,
+                                 reply_markup=random_movie_buttons())
+    await call.answer()
 
 
 if __name__ == '__main__':
