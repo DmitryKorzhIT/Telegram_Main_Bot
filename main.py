@@ -135,7 +135,6 @@ async def send_random_value(callback_query: types.CallbackQuery):
                                  chat_id=callback_query.message.chat.id,
                                  message_id=callback_query.message.message_id,
                                  reply_markup=random_movie_buttons())
-    await call.answer()
 
 
 if __name__ == '__main__':
