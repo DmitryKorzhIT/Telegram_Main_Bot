@@ -114,7 +114,6 @@ async def random_movie(message: types.Message):
     image_link = message_list[0]
     text_value = message_list[1]
 
-    # await message.answer(random_movie_value(), reply_markup=random_movie_buttons())
     await bot.send_photo(message.chat.id,
                          parse_mode=types.ParseMode.HTML,
                          photo=image_link,

@@ -39,7 +39,6 @@ def random_movie_value():
     return message_list
 
 
-
 # Inline buttons for a message with a random movie.
 def random_movie_buttons():
 
