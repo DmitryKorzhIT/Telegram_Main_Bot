@@ -3,7 +3,6 @@ from aiogram.utils.markdown import hbold
 from aiogram.dispatcher.filters import Text
 import pandas as pd
 import numpy as np
-import emoji
 
 from code.config import telegram_token
 from code.message_movie import random_movie_value, random_movie_buttons

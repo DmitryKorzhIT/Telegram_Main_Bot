@@ -1,9 +1,8 @@
 from aiogram import Bot, Dispatcher, executor, types
-from aiogram.utils.markdown import hbold
+from aiogram.utils.markdown import hbold, hcode
 from aiogram.dispatcher.filters import Text
 import pandas as pd
 import numpy as np
-import emoji
 
 from code.config import telegram_token
 
@@ -23,10 +22,17 @@ def random_movie_value():
     # Get link on a poster.
     image_link = file['posterUrl'][random_value]
 
+    # Test description.
+    test_description = 'Фантастический эпос про задыхающуюся Землю, космические ' \
+                       'полеты и парадоксы времени. «Оскар» за спецэффекты'
+
     # Message view using aiogram markdown.
     text_value = f"{hbold(file['nameRu'][random_value])} " \
-                 f"({file['year'][random_value]})\n" \
-                 f"Рейтинг кинопоиск: {file['ratingKinopoisk'][random_value]}"
+                 f"{hbold('(')}{hbold(file['year'][random_value])}{hbold(')')}\n\n" \
+                 f"\U0001F31F{hcode(' Рейтинг:')}   {hbold(file['ratingKinopoisk'][random_value])}\n" \
+                 f"\U0001F440{hcode(' Оценки:')}     {hbold('523K')}\n" \
+                 f"\U0000231B{hcode(' Время:')}       {hbold('169 мин.')}\n\n" \
+                 f"\U0001F4D6{hcode(' Описание:')} {test_description}"
 
     message_list = [image_link, text_value]
 
