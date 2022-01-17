@@ -42,6 +42,16 @@ def random_movie_value():
     # Get link on a poster.
     image_link = file['posterUrl'][random_value]
 
+    # Movie type.
+    movie_type_eng = file['type'][random_value]
+    if movie_type_eng == 'TV_SERIES':
+        movie_type = ' (cериал)'
+    elif movie_type_eng == 'MINI_SERIES':
+        movie_type = ' (мини-сериал)'
+    elif movie_type_eng == 'TV_SHOW':
+        movie_type = ' (ток-шоу)'
+    else:
+        movie_type = ''
 
     # Rating kinopoisk vote count.
     if file['ratingKinopoiskVoteCount'][random_value] < 1000:
@@ -54,7 +64,7 @@ def random_movie_value():
     if film_length >= 60:
         film_length_hours = film_length // 60
         film_length_minutes = film_length % 60
-        film_length = f"{film_length_hours} ч {film_length_minutes} мин"
+        film_length = f"{film_length_hours}ч {film_length_minutes}мин"
     else:
         film_length = f"{film_length} мин"
 
@@ -77,7 +87,7 @@ def random_movie_value():
     # Message view using aiogram markdown.
     text_value = f"{hbold(file['nameRu'][random_value])} " \
                  f"{hbold('(')}{hbold(file['year'][random_value])}{hbold(')')}" \
-                 f"{hbold('(')}{hbold()}{hbold(')')}\n\n" \
+                 f"{hbold(movie_type)}\n\n" \
                  f"\U0001F31F{hcode(' Рейтинг:')}   {hbold(file['ratingKinopoisk'][random_value])}\n" \
                  f"\U0001F440{hcode(' Оценки:')}     {hbold(rating_kinopoisk_vote_count)}{hbold('K')}\n" \
                  f"\U0000231B{hcode(' Время:')}       {hbold(film_length)}" \
