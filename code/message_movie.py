@@ -1,5 +1,5 @@
 from aiogram import Bot, Dispatcher, executor, types
-from aiogram.utils.markdown import hbold, hcode
+from aiogram.utils.markdown import hbold, hcode, hunderline
 from aiogram.dispatcher.filters import Text
 import pandas as pd
 import numpy as np
@@ -15,7 +15,7 @@ dp = Dispatcher(bot)
 def random_movie_value():
 
     # Read a csv file and create a random number.
-    file = pd.read_csv('.data/kinopoisk_movies.csv')
+    file = pd.read_csv('.data/data_v.3.0.csv')
     file_len = file[file.columns[0]].count() - 1
     random_value = np.random.randint(0, file_len)
 
@@ -31,7 +31,7 @@ def random_movie_value():
                  f"{hbold('(')}{hbold(file['year'][random_value])}{hbold(')')}\n\n" \
                  f"\U0001F31F{hcode(' Рейтинг:')}   {hbold(file['ratingKinopoisk'][random_value])}\n" \
                  f"\U0001F440{hcode(' Оценки:')}     {hbold('523K')}\n" \
-                 f"\U0000231B{hcode(' Время:')}       {hbold('169 мин.')}\n\n" \
+                 f"\U0000231B{hcode(' Время:')}       {hbold('169 мин')}\n\n" \
                  f"\U0001F4D6{hcode(' Описание:')} {test_description}"
 
     message_list = [image_link, text_value]
@@ -43,7 +43,7 @@ def random_movie_value():
 def random_movie_buttons():
 
     # Message inline buttons.
-    buttons = [types.InlineKeyboardButton(text="<", callback_data="previous_movie"),
+    buttons = [types.InlineKeyboardButton(text="Трейлер", callback_data="previous_movie"),
                types.InlineKeyboardButton(text=">", callback_data="next_movie")]
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     keyboard.add(*buttons)
