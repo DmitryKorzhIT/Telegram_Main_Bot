@@ -18,7 +18,7 @@ def random_movie_value():
     file = pd.read_csv('.data/data_v.3.0.csv')
     file_len = file[file.columns[0]].count() - 1
 
-    # Imlemented filters to show good quolity random movies.
+    # Implemented filters to show good quolity random movies.
     while True:
         random_value = np.random.randint(0, file_len)
 
@@ -27,7 +27,7 @@ def random_movie_value():
            (file['ratingKinopoiskVoteCount'][random_value] >= 2000) and \
            (file['ratingKinopoisk'][random_value] >= 5.5) and \
            (file['year'][random_value] >= 2000):
-                break
+            break
         else:
             continue
 
@@ -39,14 +39,20 @@ def random_movie_value():
         else:
             continue
 
-    # Rating kinopoisk vote count
-    if file['ratingKinopoiskVoteCount'][random_value] < 10000:
+    # Rating kinopoisk vote count.
+    if file['ratingKinopoiskVoteCount'][random_value] < 1000:
         rating_kinopoisk_vote_count = '%.1f' %(file['ratingKinopoiskVoteCount'][random_value]/1000)
     else:
         rating_kinopoisk_vote_count = '%.0f' % (file['ratingKinopoiskVoteCount'][random_value] / 1000)
 
-    # Movie length
+    # Movie length.
     film_length = file['filmLength'][random_value]
+    if film_length >= 60:
+        film_length_hours = film_length // 60
+        film_length_minutes = film_length % 60
+        film_length = f"{film_length_hours} ч {film_length_minutes} мин"
+    else:
+        film_length = f"{film_length} мин"
 
     # Get link on a poster.
     image_link = file['posterUrl'][random_value]
@@ -72,10 +78,11 @@ def random_movie_value():
                  f"{hbold('(')}{hbold(file['year'][random_value])}{hbold(')')}\n\n" \
                  f"\U0001F31F{hcode(' Рейтинг:')}   {hbold(file['ratingKinopoisk'][random_value])}\n" \
                  f"\U0001F440{hcode(' Оценки:')}     {hbold(rating_kinopoisk_vote_count)}{hbold('K')}\n" \
-                 f"\U0000231B{hcode(' Время:')}       {hbold(film_length, 'мин')}" \
+                 f"\U0000231B{hcode(' Время:')}       {hbold(film_length)}" \
                  f"{description}"
 
 
+    # Return movie poster and movie text in list format.
     message_list = [image_link, text_value]
 
     return message_list
