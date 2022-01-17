@@ -128,11 +128,12 @@ async def send_random_value(callback_query: types.CallbackQuery):
     message_list = random_movie_value()
     image_link = message_list[0]
     text_value = message_list[1]
+    name_year = message_list[2]
 
     await bot.edit_message_media(media=types.InputMediaPhoto(image_link, caption=text_value),
                                  chat_id=callback_query.message.chat.id,
                                  message_id=callback_query.message.message_id,
-                                 reply_markup=random_movie_buttons())
+                                 reply_markup=random_movie_buttons(name_year))
 
 
 if __name__ == '__main__':

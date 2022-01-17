@@ -39,6 +39,10 @@ def random_movie_value():
         else:
             continue
 
+    # Get link on a poster.
+    image_link = file['posterUrl'][random_value]
+
+
     # Rating kinopoisk vote count.
     if file['ratingKinopoiskVoteCount'][random_value] < 1000:
         rating_kinopoisk_vote_count = '%.1f' %(file['ratingKinopoiskVoteCount'][random_value]/1000)
@@ -53,9 +57,6 @@ def random_movie_value():
         film_length = f"{film_length_hours} ч {film_length_minutes} мин"
     else:
         film_length = f"{film_length} мин"
-
-    # Get link on a poster.
-    image_link = file['posterUrl'][random_value]
 
     # Description.
     description = str()
@@ -75,24 +76,28 @@ def random_movie_value():
 
     # Message view using aiogram markdown.
     text_value = f"{hbold(file['nameRu'][random_value])} " \
-                 f"{hbold('(')}{hbold(file['year'][random_value])}{hbold(')')}\n\n" \
+                 f"{hbold('(')}{hbold(file['year'][random_value])}{hbold(')')}" \
+                 f"{hbold('(')}{hbold()}{hbold(')')}\n\n" \
                  f"\U0001F31F{hcode(' Рейтинг:')}   {hbold(file['ratingKinopoisk'][random_value])}\n" \
                  f"\U0001F440{hcode(' Оценки:')}     {hbold(rating_kinopoisk_vote_count)}{hbold('K')}\n" \
                  f"\U0000231B{hcode(' Время:')}       {hbold(film_length)}" \
                  f"{description}"
 
+    # Name with year in one string for search trailers.
+    name_year = f"{file['nameRu'][random_value]} {file['year'][random_value]}"
+    name_year = name_year.replace(" ", "+")
 
-    # Return movie poster and movie text in list format.
-    message_list = [image_link, text_value]
+    # Return movie poster, movie text and name with year in list format.
+    message_list = [image_link, text_value, name_year]
 
     return message_list
 
 
 # Inline buttons for a message with a random movie.
-def random_movie_buttons():
+def random_movie_buttons(name_year):
 
     # Message inline buttons.
-    buttons = [types.InlineKeyboardButton(text="Трейлер", callback_data="previous_movie"),
+    buttons = [types.InlineKeyboardButton('Трейлер', url=f"https://www.youtube.com/results?search_query={name_year}+трейлер"),
                types.InlineKeyboardButton(text=">", callback_data="next_movie")]
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     keyboard.add(*buttons)
