@@ -5,4 +5,4 @@
 
 ### Our branches:
 
-:round_pushpin:**Telelgram_Bot_v.1.0** — the simple basic template of how the first worked version of the bot should work. The bot uses keyboard buttons.
+:round_pushpin:**Telelgram_Bot_v.1.0** — the simplest Telegram Bot for choosing movies in random order.
