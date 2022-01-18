@@ -6,6 +6,7 @@ attrs==21.4.0
 Babel==2.9.1
 certifi==2021.10.8
 charset-normalizer==2.0.10
+emoji==1.6.1
 frozenlist==1.2.0
 idna==3.3
 multidict==5.2.0
