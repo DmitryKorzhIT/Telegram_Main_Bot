@@ -113,12 +113,13 @@ async def random_movie(message: types.Message):
     message_list = random_movie_value()
     image_link = message_list[0]
     text_value = message_list[1]
+    name_year = message_list[2]
 
     await bot.send_photo(message.chat.id,
                          parse_mode=types.ParseMode.HTML,
                          photo=image_link,
                          caption=text_value,
-                         reply_markup=random_movie_buttons())
+                         reply_markup=random_movie_buttons(name_year))
 
 
 # Handler for react on inline buttons with callback_data="next_movie".

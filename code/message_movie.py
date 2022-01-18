@@ -62,9 +62,9 @@ def random_movie_value():
     # Movie length.
     film_length = file['filmLength'][random_value]
     if film_length >= 60:
-        film_length_hours = film_length // 60
-        film_length_minutes = film_length % 60
-        film_length = f"{film_length_hours}ч {film_length_minutes}мин"
+            film_length_hours = film_length // 60
+            film_length_minutes = film_length % 60
+            film_length = f"{film_length_hours}ч {film_length_minutes}мин"
     else:
         film_length = f"{film_length} мин"
 
