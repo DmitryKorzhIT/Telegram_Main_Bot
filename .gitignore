@@ -3,8 +3,9 @@ venv
 .git
 .idea
 *.swp
-code/config.py
+code/config1.py
 .obsidian
 delete_me.py
 *~*
 .ipynb*
+Cron_Commands
